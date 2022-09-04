@@ -52,7 +52,6 @@
 	  <Folder Include="Gateways\" />
 	  <Folder Include="Models\" />
 	  <Folder Include="ViewModels\" />
-	  <Folder Include="Views\" />
 	</ItemGroup>
 
 </Project>
