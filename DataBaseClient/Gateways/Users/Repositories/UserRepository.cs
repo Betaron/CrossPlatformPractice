@@ -9,7 +9,7 @@ internal class UserRepository : IUserRepository
         throw new NotImplementedException();
     }
 
-    Task IUserRepository.Deleteuser(Guid id)
+    Task IUserRepository.DeleteUserAsync(Guid id)
     {
         throw new NotImplementedException();
     }

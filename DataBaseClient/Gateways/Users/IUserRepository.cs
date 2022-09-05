@@ -35,5 +35,5 @@ internal interface IUserRepository
     /// Deletes a user by their unique ID.
     /// </summary>
     /// <param name="id">Unique identifier.</param>
-    internal Task Deleteuser(Guid id);
+    internal Task DeleteUserAsync(Guid id);
 }
