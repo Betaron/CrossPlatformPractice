@@ -4,27 +4,27 @@ namespace DataBaseClient.Gateways.Users.Repositories;
 
 internal class UserRepository : IUserRepository
 {
-    Task IUserRepository.CreateAsync(User user)
+    void IUserRepository.Create(User user)
     {
         throw new NotImplementedException();
     }
 
-    Task IUserRepository.DeleteUserAsync(Guid id)
+    void IUserRepository.Delete(Guid id)
     {
         throw new NotImplementedException();
     }
 
-    Task<IEnumerable<User>> IUserRepository.GetAllUsersAsync()
+    IEnumerable<User> IUserRepository.GetAllUsers()
     {
         throw new NotImplementedException();
     }
 
-    Task<User> IUserRepository.GetUserByIdAsync(Guid id)
+    User IUserRepository.GetUserById(Guid id)
     {
         throw new NotImplementedException();
     }
 
-    Task IUserRepository.UpdateAsync(Guid id, User user)
+    void IUserRepository.Update(Guid id, User user)
     {
         throw new NotImplementedException();
     }
