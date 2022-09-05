@@ -1,14 +1,15 @@
-﻿using System.Collections;
+﻿using DataBaseClient.Models;
+using System.Collections;
 
 namespace DataBaseClient
 {
     internal class DataContext
     {
-        public Hashtable Users { get; private set; }
+        public Dictionary<Guid, User> Users { get; private set; }
 
         DataContext()
         {
-            Users = new Hashtable();
+            Users = new Dictionary<Guid, User>();
         }
     }
 }
