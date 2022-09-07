@@ -1,4 +1,6 @@
-﻿namespace DataBaseClient.Models;
+﻿using Java.Lang;
+
+namespace DataBaseClient.Models;
 
 internal class User
 {
@@ -6,4 +8,12 @@ internal class User
     public string Login { get; set; }
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
+
+    public User(User InstanceToCopy)
+    {
+        Id = InstanceToCopy.Id;
+        Login = InstanceToCopy.Login;
+        Email = InstanceToCopy.Email;
+        PhoneNumber = InstanceToCopy.PhoneNumber;
+    }
 }

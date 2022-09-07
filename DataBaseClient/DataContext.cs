@@ -1,5 +1,4 @@
 ﻿using DataBaseClient.Models;
-using System.Collections;
 
 namespace DataBaseClient;
 
@@ -10,5 +9,17 @@ internal class DataContext
     DataContext()
     {
         Users = new Dictionary<Guid, User>();
+    }
+
+    public bool UpdateUser(User newUser)
+    {
+        if (!Users.ContainsKey(newUser.Id))
+        {
+            return false;
+        }
+
+        Users[newUser.Id] = new User(newUser);
+
+        return true;
     }
 }
