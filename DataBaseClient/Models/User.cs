@@ -1,6 +1,4 @@
-﻿using Java.Lang;
-
-namespace DataBaseClient.Models;
+﻿namespace DataBaseClient.Models;
 
 internal class User
 {

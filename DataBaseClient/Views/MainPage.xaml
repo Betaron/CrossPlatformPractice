@@ -2,13 +2,32 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DataBaseClient.MainPage">
-
-    <ScrollView>
+	
+	<ScrollView>
 		<VerticalStackLayout
             Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
-		</VerticalStackLayout>
-    </ScrollView>
+            Padding="30"
+			VerticalOptions="Start"
+			HorizontalOptions="Center"
+			MaximumWidthRequest="400">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition/>
+					<RowDefinition/>
+					<RowDefinition/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
 
+				<Button Grid.Row="0" Grid.Column="0" Text="Save"/>
+				<Button Grid.Row="0" Grid.Column="1" Text="Load"/>
+				<Button Grid.Row="1" Grid.Column="0" Text="Create" TextColor="#00a000"/>
+				<Button Grid.Row="1" Grid.Column="1" Text="Update" TextColor="#ffa500"/>
+				<Button Grid.Row="2" Grid.ColumnSpan="2" Text="Delete" TextColor="#d70000"/>
+			</Grid>
+		</VerticalStackLayout>
+	</ScrollView>
+	
 </ContentPage>
