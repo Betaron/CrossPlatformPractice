@@ -2,24 +2,15 @@
 
 namespace DataBaseClient;
 
-internal class DataContext
+public class DataContext
 {
-    public Dictionary<Guid, User> Users { get; private set; }
-
-    DataContext()
+    private Dictionary<Guid, User> _users = new();
+    public Dictionary<Guid, User> Users
     {
-        Users = new Dictionary<Guid, User>();
-    }
-
-    public bool UpdateUser(User newUser)
-    {
-        if (!Users.ContainsKey(newUser.Id))
+        get => _users;
+        set
         {
-            return false;
+            _users = value;
         }
-
-        Users[newUser.Id] = new User(newUser);
-
-        return true;
     }
 }

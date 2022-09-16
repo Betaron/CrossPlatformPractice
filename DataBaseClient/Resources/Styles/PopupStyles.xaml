@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+	<Style TargetType="Frame" x:Key="PopupFrame">
+		<Setter Property="CornerRadius" Value="12"/>
+		<Setter Property="BorderColor" Value="Transparent"/>
+		<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}"/>
+	</Style>
+
+	<Style TargetType="Entry" x:Key="PopupEntry">
+		<Setter Property="Margin" Value="0, 4, 0, 4"/>
+		<Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource White}}"/>
+	</Style>
+
+	<Style TargetType="Label" x:Key="PopupHeader">
+		<Setter Property="FontSize" Value="18"/>
+		<Setter Property="Margin" Value="0, 0, 0, 12"/>
+	</Style>
+
+	<Style TargetType="HorizontalStackLayout" x:Key="PopupButtonLayout">
+		<Setter Property="HorizontalOptions" Value="End"/>
+		<Setter Property="Padding" Value="0"/>
+		<Setter Property="Margin" Value="0, 12, -4, 0"/>
+	</Style>
+
+</ResourceDictionary>

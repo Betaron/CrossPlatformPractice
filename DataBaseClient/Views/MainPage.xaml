@@ -1,15 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:models="clr-namespace:DataBaseClient.Models"
+			 xmlns:viewModels="clr-namespace:DataBaseClient.ViewModels"
+			 x:DataType="viewModels:UsersViewModel"
              x:Class="DataBaseClient.MainPage">
-	
+
 	<ScrollView>
 		<VerticalStackLayout
             Spacing="25"
             Padding="30"
 			VerticalOptions="Start"
-			HorizontalOptions="Center"
-			MaximumWidthRequest="400">
+			HorizontalOptions="Center">
 			<Grid>
 				<Grid.RowDefinitions>
 					<RowDefinition/>
@@ -23,7 +25,7 @@
 
 				<Button Grid.Row="0" Grid.Column="0" Text="Save"/>
 				<Button Grid.Row="0" Grid.Column="1" Text="Load"/>
-				<Button Grid.Row="1" Grid.Column="0" Text="Create" TextColor="#00a000"/>
+				<Button Grid.Row="1" Grid.Column="0" Text="Create" TextColor="#00a000" Command="{Binding CreateUserCommand}"/>
 				<Button Grid.Row="1" Grid.Column="1" Text="Update" TextColor="#ffa500"/>
 				<Button Grid.Row="2" Grid.ColumnSpan="2" Text="Delete" TextColor="#d70000"/>
 			</Grid>

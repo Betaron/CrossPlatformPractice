@@ -1,6 +1,6 @@
 ﻿namespace DataBaseClient.Exceptions;
 
-internal class ValidationException : Exception
+public class ValidationException : Exception
 {
     public string ValidationMessage { get; private set; }
 

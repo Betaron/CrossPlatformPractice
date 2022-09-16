@@ -1,9 +1,13 @@
-﻿namespace DataBaseClient;
+﻿using DataBaseClient.ViewModels;
+
+namespace DataBaseClient;
 
 public partial class MainPage : ContentPage
 {
-	public MainPage()
+    public MainPage(UsersViewModel usersViewModel)
 	{
 		InitializeComponent();
-	}
+
+		BindingContext = usersViewModel;
+    }
 }

@@ -3,7 +3,7 @@ using DataBaseClient.Models;
 
 namespace DataBaseClient.Gateways.Users.Repositories;
 
-internal class UserRepository : IUserRepository
+public class UserRepository : IUserRepository
 {
     private readonly DataContext _context;
 
@@ -23,7 +23,7 @@ internal class UserRepository : IUserRepository
                 $"User with Login \"{user.Login}\" already exists.");
         }
 
-        _context.Users.Add(user.Id, user);
+        _context.Users.Add(Guid.NewGuid(), user);
     }
 
     void IUserRepository.Delete(Guid id)
@@ -37,7 +37,7 @@ internal class UserRepository : IUserRepository
         _context.Users.Remove(id);
     }
 
-    IEnumerable<User> IUserRepository.GetAllUsers()
+    Dictionary<Guid, User> IUserRepository.GetAllUsers()
     {
         if (_context.Users.Count == 0)
         {
@@ -45,10 +45,10 @@ internal class UserRepository : IUserRepository
                 "Users aren't in the database.");
         }
 
-        return _context.Users.Values.ToList();
+        return _context.Users;
     }
 
-    User IUserRepository.GetUserById(Guid id)
+    KeyValuePair<Guid, User> IUserRepository.GetUserById(Guid id)
     {
         if (!_context.Users.ContainsKey(id))
         {
@@ -56,7 +56,21 @@ internal class UserRepository : IUserRepository
                 $"User with Id \"{id}\" doesn't exist.");
         }
 
-        return _context.Users[id];
+        return new KeyValuePair<Guid, User>(id, _context.Users[id]);
+    }
+
+    KeyValuePair<Guid, User> IUserRepository.GetUserByLogin(string login)
+    {
+        var entity = _context.Users.FirstOrDefault(
+            it => it.Value.Login == login);
+
+        if (entity.Value is null)
+        {
+            throw new ValidationException(
+                $"User with login \"{login}\" doesn't exist.");
+        }
+
+        return entity;
     }
 
     void IUserRepository.Update(Guid id, User user)
@@ -68,7 +82,7 @@ internal class UserRepository : IUserRepository
         }
 
         var sameLoginEntity = _context.Users.FirstOrDefault(
-            it => it.Value.Login == user.Login && it.Value.Id != user.Id);
+            it => it.Value.Login == user.Login && it.Key != id);
 
         if (sameLoginEntity.Value is not null)
         {
@@ -76,6 +90,6 @@ internal class UserRepository : IUserRepository
                 $"User with Login \"{user.Login}\" already exists.");
         }
 
-        _context.UpdateUser(user);
+        _context.Users.Add(id, new User(user));
     }
 }
