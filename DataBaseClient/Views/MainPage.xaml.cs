@@ -1,6 +1,6 @@
 ﻿using DataBaseClient.ViewModels;
 
-namespace DataBaseClient;
+namespace DataBaseClient.Views;
 
 public partial class MainPage : ContentPage
 {

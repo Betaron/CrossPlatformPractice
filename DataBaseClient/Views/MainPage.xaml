@@ -4,7 +4,7 @@
 			 xmlns:models="clr-namespace:DataBaseClient.Models"
 			 xmlns:viewModels="clr-namespace:DataBaseClient.ViewModels"
 			 x:DataType="viewModels:UsersViewModel"
-             x:Class="DataBaseClient.MainPage">
+             x:Class="DataBaseClient.Views.MainPage">
 
 	<ScrollView>
 		<VerticalStackLayout
