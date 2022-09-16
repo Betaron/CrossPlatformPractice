@@ -3,17 +3,19 @@ using DataBaseClient.Gateways.Users;
 using DataBaseClient.Models;
 using DataBaseClient.Views;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Windows.Input;
 
 namespace DataBaseClient.ViewModels;
 
 public class UsersViewModel : BaseViewModel
 {
-    public ObservableCollection<KeyValuePair<Guid, User>> Users { get; } = new();
+    public ObservableCollection<User> Users { get; } = new();
     private DataContext _context;
     private IUserRepository _userRepository;
 
     public ICommand CreateUserCommand { get; private set; }
+    public ICommand CopyToClipboardCommand { get; private set; }
 
     public UsersViewModel(
         DataContext context,
@@ -23,6 +25,12 @@ public class UsersViewModel : BaseViewModel
         _userRepository = userRepository;
 
         CreateUserCommand = new Command(CreateUser);
+        CopyToClipboardCommand = new Command<string>(CopyToClipboard);
+    }
+
+    async void CopyToClipboard(string guid)
+    {
+        await Clipboard.Default.SetTextAsync(guid);
     }
 
     async void CreateUser()
@@ -36,11 +44,12 @@ public class UsersViewModel : BaseViewModel
         if (user is null)
             return;
 
+        user.Guid = Guid.NewGuid();
+
         WrapInExceptionHandler(() =>
         {
             _userRepository.Create(user);
-
-            Users.Add(_userRepository.GetUserByLogin(user.Login));
+            Users.Add(user);
         });
     }
 
@@ -48,7 +57,16 @@ public class UsersViewModel : BaseViewModel
     {
         WrapInExceptionHandler(() =>
         {
-            var users = _userRepository.GetAllUsers();
+            //var users = _userRepository.GetAllUsers();
+
+            var users = _userRepository.GetAllUsers().Select(x =>
+            new User
+            {
+                Guid = x.Key,
+                Login = x.Value.Login,
+                Email = x.Value.Email,
+                PhoneNumber = x.Value.PhoneNumber
+            });
 
             if (Users.Count != 0)
                 Users.Clear();

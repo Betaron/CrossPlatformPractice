@@ -1,11 +1,12 @@
-﻿using DataBaseClient.Models;
+﻿using DataBaseClient.Gateways;
+using DataBaseClient.Models;
 
 namespace DataBaseClient;
 
 public class DataContext
 {
-    private Dictionary<Guid, User> _users = new();
-    public Dictionary<Guid, User> Users
+    private Dictionary<Guid, UserDbModel> _users = new();
+    public Dictionary<Guid, UserDbModel> Users
     {
         get => _users;
         set
