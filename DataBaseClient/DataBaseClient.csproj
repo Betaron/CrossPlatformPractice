@@ -54,7 +54,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\UserUpdatePopup.xaml.cs">
+	    <DependentUpon>UserUpdatePopup.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="Resources\Styles\PopupStyles.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\UserUpdatePopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\UserCreatePopup.xaml">

@@ -90,6 +90,10 @@ public class UserRepository : IUserRepository
                 $"User with Login \"{user.Login}\" already exists.");
         }
 
-        _context.Users.Add(user.Guid, new UserDbModel(user));
+        var entity = _context.Users[user.Guid];
+
+        entity.Login = user.Login;
+        entity.Email = user.Email;
+        entity.PhoneNumber = user.PhoneNumber;
     }
 }

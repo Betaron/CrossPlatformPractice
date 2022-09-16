@@ -15,7 +15,7 @@ public class UsersViewModel : BaseViewModel
     private IUserRepository _userRepository;
 
     public ICommand CreateUserCommand { get; private set; }
-    public ICommand CopyToClipboardCommand { get; private set; }
+    public ICommand UpdateUserCommand { get; private set; }
 
     public UsersViewModel(
         DataContext context,
@@ -25,12 +25,7 @@ public class UsersViewModel : BaseViewModel
         _userRepository = userRepository;
 
         CreateUserCommand = new Command(CreateUser);
-        CopyToClipboardCommand = new Command<string>(CopyToClipboard);
-    }
-
-    async void CopyToClipboard(string guid)
-    {
-        await Clipboard.Default.SetTextAsync(guid);
+        UpdateUserCommand = new Command(UpdateUser);
     }
 
     async void CreateUser()
@@ -50,6 +45,28 @@ public class UsersViewModel : BaseViewModel
         {
             _userRepository.Create(user);
             Users.Add(user);
+        });
+    }
+
+    async void UpdateUser()
+    {
+        var popup = new UserUpdatePopup();
+        await PopupExtensions.ShowPopupAsync<UserUpdatePopup>(
+            Application.Current.MainPage, popup);
+
+        User user = await popup?.Result as User;
+
+        if (user is null || user?.Guid == Guid.Empty)
+            return;
+
+        WrapInExceptionHandler(() =>
+        {
+            _userRepository.Update(user);
+            var entity = Users.FirstOrDefault(x => x.Guid == user.Guid);
+
+            entity.Login = user.Login;
+            entity.Email = user.Email;
+            entity.PhoneNumber = user.PhoneNumber;
         });
     }
 

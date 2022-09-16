@@ -1,13 +1,18 @@
-﻿using System.Windows.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.Windows.Input;
 
 namespace DataBaseClient.Models;
 
-public class User
+public partial class User : ObservableObject
 {
-    public Guid Guid { get; set; }
-    public string Login { get; set; }
-    public string Email { get; set; }
-    public string PhoneNumber { get; set; }
+    [ObservableProperty]
+    public Guid guid;
+    [ObservableProperty]
+    public string login;
+    [ObservableProperty]
+    public string email;
+    [ObservableProperty]
+    public string phoneNumber;
 
     public ICommand CopyToClipboardCommand { get; private set; }
 
