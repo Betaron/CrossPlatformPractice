@@ -43,4 +43,11 @@ public interface IUserRepository
     /// </summary>
     /// <param name="id">Unique identifier.</param>
     public void Delete(Guid id);
+
+    /// <summary>
+    /// Opens a file dialog and saves the data context to a json file.
+    /// </summary>
+    /// <param name="targetFileName">Name of database file.</param>
+    /// <returns>Success.</returns>
+    public bool Save(string targetFileName);
 }

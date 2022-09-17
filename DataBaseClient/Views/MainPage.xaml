@@ -23,7 +23,7 @@
 					<ColumnDefinition/>
 				</Grid.ColumnDefinitions>
 
-				<Button Grid.Row="0" Grid.Column="0" Text="Save"/>
+				<Button Grid.Row="0" Grid.Column="0" Text="Save" Command="{Binding SaveCollectionCommand}"/>
 				<Button Grid.Row="0" Grid.Column="1" Text="Load"/>
 				<Button Grid.Row="1" Grid.Column="0" Text="Create" TextColor="#00a000" Command="{Binding CreateUserCommand}"/>
 				<Button Grid.Row="1" Grid.Column="1" Text="Update" TextColor="#ffa500" Command="{Binding UpdateUserCommand}"/>

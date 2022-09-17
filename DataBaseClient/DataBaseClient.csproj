@@ -60,6 +60,9 @@
 	  <Compile Update="Views\UserUpdatePopup.xaml.cs">
 	    <DependentUpon>UserUpdatePopup.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\SavePopup.xaml.cs">
+	    <DependentUpon>SavePopup.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -70,6 +73,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\UserUpdatePopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\SavePopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\UserCreatePopup.xaml">

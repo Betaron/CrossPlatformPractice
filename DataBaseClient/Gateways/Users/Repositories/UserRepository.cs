@@ -1,5 +1,9 @@
 ﻿using DataBaseClient.Exceptions;
 using DataBaseClient.Models;
+using System.Diagnostics;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+using System.Text.Json;
 
 namespace DataBaseClient.Gateways.Users.Repositories;
 
@@ -95,5 +99,29 @@ public class UserRepository : IUserRepository
         entity.Login = user.Login;
         entity.Email = user.Email;
         entity.PhoneNumber = user.PhoneNumber;
+    }
+
+    bool IUserRepository.Save(string targetFileName)
+    {
+        bool success = false;
+
+        string targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, targetFileName + ".jsondb");
+        using FileStream outputStream = File.OpenWrite(targetFile);
+
+        try
+        {
+            JsonSerializer.Serialize(outputStream, _context.Users);
+            success = true;
+        }
+        catch (SerializationException e)
+        {
+            Console.WriteLine("Failed to serialize. Reason: " + e.Message);
+            success = false;
+        }
+        finally
+        {
+            outputStream.Close();
+        }
+        return success;
     }
 }

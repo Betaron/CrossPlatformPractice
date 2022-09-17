@@ -3,7 +3,6 @@ using DataBaseClient.Gateways.Users;
 using DataBaseClient.Models;
 using DataBaseClient.Views;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Windows.Input;
 
 namespace DataBaseClient.ViewModels;
@@ -14,6 +13,7 @@ public class UsersViewModel : BaseViewModel
     private DataContext _context;
     private IUserRepository _userRepository;
 
+    public ICommand SaveCollectionCommand { get; private set; }
     public ICommand CreateUserCommand { get; private set; }
     public ICommand UpdateUserCommand { get; private set; }
     public ICommand DeleteUserCommand { get; private set; }
@@ -25,9 +25,35 @@ public class UsersViewModel : BaseViewModel
         _context = context;
         _userRepository = userRepository;
 
+        SaveCollectionCommand = new Command(SaveCollection);
         CreateUserCommand = new Command(CreateUser);
         UpdateUserCommand = new Command(UpdateUser);
         DeleteUserCommand = new Command(DeleteUser);
+    }
+
+    async void SaveCollection()
+    {
+        var popup = new SavePopup();
+        await PopupExtensions.ShowPopupAsync<SavePopup>(
+            Application.Current.MainPage, popup);
+
+        string fileName = await popup?.Result as string;
+
+        if (fileName is null)
+            return;
+
+        WrapInExceptionHandler(() =>
+        {
+            var success = _userRepository.Save(fileName);
+            if (success)
+            {
+                Application.Current.MainPage.DisplayAlert("Success!", "File has been written.", "Ok :)");
+            }
+            else
+            {
+                Application.Current.MainPage.DisplayAlert("Fail!", "File hasn't been written.", "Ok :(");
+            }
+        });
     }
 
     async void CreateUser()
@@ -96,8 +122,6 @@ public class UsersViewModel : BaseViewModel
     {
         WrapInExceptionHandler(() =>
         {
-            //var users = _userRepository.GetAllUsers();
-
             var users = _userRepository.GetAllUsers().Select(x =>
             new User
             {
