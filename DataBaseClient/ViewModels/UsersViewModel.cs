@@ -16,6 +16,7 @@ public class UsersViewModel : BaseViewModel
 
     public ICommand CreateUserCommand { get; private set; }
     public ICommand UpdateUserCommand { get; private set; }
+    public ICommand DeleteUserCommand { get; private set; }
 
     public UsersViewModel(
         DataContext context,
@@ -26,6 +27,7 @@ public class UsersViewModel : BaseViewModel
 
         CreateUserCommand = new Command(CreateUser);
         UpdateUserCommand = new Command(UpdateUser);
+        DeleteUserCommand = new Command(DeleteUser);
     }
 
     async void CreateUser()
@@ -67,6 +69,26 @@ public class UsersViewModel : BaseViewModel
             entity.Login = user.Login;
             entity.Email = user.Email;
             entity.PhoneNumber = user.PhoneNumber;
+        });
+    }
+
+    async void DeleteUser()
+    {
+        var popup = new UserDeletePopup();
+        await PopupExtensions.ShowPopupAsync<UserDeletePopup>(
+            Application.Current.MainPage, popup);
+
+        Guid? guid = await popup?.Result as Guid?;
+
+        if (guid is null || guid == Guid.Empty)
+            return;
+
+        WrapInExceptionHandler(() =>
+        {
+            _userRepository.Delete((Guid)guid);
+            var entity = Users.FirstOrDefault(x => x.Guid == (Guid)guid);
+
+            Users.Remove(entity);
         });
     }
 
