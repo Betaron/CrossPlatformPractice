@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:models="clr-namespace:DataBaseClient.Models"
+			 xmlns:viewModels="clr-namespace:DataBaseClient.ViewModels"
+			 x:DataType="viewModels:UsersViewModel"
+             x:Class="DataBaseClient.Views.MainPage">
+
+	<ScrollView>
+		<VerticalStackLayout
+            Spacing="25"
+            Padding="30"
+			VerticalOptions="Start"
+			HorizontalOptions="Center">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition/>
+					<RowDefinition/>
+					<RowDefinition/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+
+				<Button Grid.Row="0" Grid.Column="0" Text="Save" Command="{Binding SaveCollectionCommand}"/>
+				<Button Grid.Row="0" Grid.Column="1" Text="Load" Command="{Binding LoadCollectionCommand}"/>
+				<Button Grid.Row="1" Grid.Column="0" Text="Create" TextColor="#00a000" Command="{Binding CreateUserCommand}"/>
+				<Button Grid.Row="1" Grid.Column="1" Text="Update" TextColor="#ffa500" Command="{Binding UpdateUserCommand}"/>
+				<Button Grid.Row="2" Grid.ColumnSpan="2" Text="Delete" TextColor="#d70000" Command="{Binding DeleteUserCommand}"/>
+			</Grid>
+			<CollectionView ItemsSource="{Binding Users}"
+							SelectionMode="None">
+				<CollectionView.ItemTemplate>
+					<DataTemplate x:DataType="models:User">
+						<Grid>
+							<Frame>
+								<VerticalStackLayout Spacing="4">
+									<StackLayout Spacing="{OnIdiom 2, Desktop=24, Tablet=24}"
+										Orientation="{OnIdiom Vertical, Desktop=Horizontal, Tablet=Horizontal}">
+										<Label x:Name="guidLabel" Text="{Binding Guid}" FontSize="{OnIdiom Phone=20, Desktop=20, Tablet=16}"/>
+										<Button 
+												HorizontalOptions="Start"
+												Text="Copy"
+												WidthRequest="60"
+												FontSize="12"
+												Margin ="0"
+												Padding="8, 4, 8, 4"
+												Grid.Column="1"
+												Command="{Binding CopyToClipboardCommand}"
+												CommandParameter="{Binding Source={x:Reference guidLabel}, Path=Text}">
+										</Button>
+									</StackLayout>
+									<Label>
+										<Label.FormattedText>
+											<FormattedString>
+												<Span Text="Login: " 
+													  TextColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray500}}"/>
+												<Span Text="{Binding Login}"/>
+											</FormattedString>
+										</Label.FormattedText>
+									</Label>
+									<Label>
+										<Label.FormattedText>
+											<FormattedString>
+												<Span Text="Email: "
+													  TextColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray500}}"/>
+												<Span Text="{Binding Email}"/>
+											</FormattedString>
+										</Label.FormattedText>
+									</Label>
+									<Label>
+										<Label.FormattedText>
+											<FormattedString>
+												<Span Text="Phone: "
+													  TextColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray500}}"/>
+												<Span Text="{Binding PhoneNumber}"/>
+											</FormattedString>
+										</Label.FormattedText>
+									</Label>
+								</VerticalStackLayout>
+							</Frame>
+						</Grid>
+					</DataTemplate>
+				</CollectionView.ItemTemplate>
+			</CollectionView>
+		</VerticalStackLayout>
+	</ScrollView>
+	
+</ContentPage>
