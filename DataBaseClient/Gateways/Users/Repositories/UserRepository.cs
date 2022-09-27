@@ -1,7 +1,5 @@
 ﻿using DataBaseClient.Exceptions;
 using DataBaseClient.Models;
-using System.Diagnostics;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using System.Text.Json;
 
@@ -121,6 +119,31 @@ public class UserRepository : IUserRepository
         finally
         {
             outputStream.Close();
+        }
+        return success;
+    }
+
+    bool IUserRepository.Load(string targetFileName)
+    {
+        bool success = false;
+
+        string targetFile = Path.Combine(FileSystem.Current.AppDataDirectory, targetFileName + ".jsondb");
+        using FileStream inputStream = File.OpenRead(targetFile);
+
+        try
+        {
+            var collection = JsonSerializer.Deserialize<Dictionary<Guid, UserDbModel>>(inputStream);
+            _context.Users = new Dictionary<Guid, UserDbModel>(collection);
+            success = true;
+        }
+        catch (SerializationException e)
+        {
+            Console.WriteLine("Failed to serialize. Reason: " + e.Message);
+            success = false;
+        }
+        finally
+        {
+            inputStream.Close();
         }
         return success;
     }

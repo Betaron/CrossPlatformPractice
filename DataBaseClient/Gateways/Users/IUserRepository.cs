@@ -50,4 +50,11 @@ public interface IUserRepository
     /// <param name="targetFileName">Name of database file.</param>
     /// <returns>Success.</returns>
     public bool Save(string targetFileName);
+
+    /// <summary>
+    /// Opens a file dialog and load the data from the json file.
+    /// </summary>
+    /// /// <param name="targetFileName">Name of database file.</param>
+    /// <returns>Success.</returns>
+    public bool Load(string targetFileName);
 }

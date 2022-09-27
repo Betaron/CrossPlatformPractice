@@ -14,6 +14,7 @@ public class UsersViewModel : BaseViewModel
     private IUserRepository _userRepository;
 
     public ICommand SaveCollectionCommand { get; private set; }
+    public ICommand LoadCollectionCommand { get; private set; }
     public ICommand CreateUserCommand { get; private set; }
     public ICommand UpdateUserCommand { get; private set; }
     public ICommand DeleteUserCommand { get; private set; }
@@ -26,6 +27,7 @@ public class UsersViewModel : BaseViewModel
         _userRepository = userRepository;
 
         SaveCollectionCommand = new Command(SaveCollection);
+        LoadCollectionCommand = new Command(LoadCollection);
         CreateUserCommand = new Command(CreateUser);
         UpdateUserCommand = new Command(UpdateUser);
         DeleteUserCommand = new Command(DeleteUser);
@@ -54,6 +56,33 @@ public class UsersViewModel : BaseViewModel
                 Application.Current.MainPage.DisplayAlert("Fail!", "File hasn't been written.", "Ok :(");
             }
         });
+    }
+
+    async void LoadCollection()
+    {
+        var popup = new LoadPopup();
+        await PopupExtensions.ShowPopupAsync<LoadPopup>(
+            Application.Current.MainPage, popup);
+
+        string fileName = await popup?.Result as string;
+
+        if (fileName is null)
+            return;
+
+        WrapInExceptionHandler(() =>
+        {
+            var success = _userRepository.Load(fileName);
+            if (success)
+            {
+                Application.Current.MainPage.DisplayAlert("Success!", "File has been loaded.", "Ok :)");
+            }
+            else
+            {
+                Application.Current.MainPage.DisplayAlert("Fail!", "File hasn't been loaded.", "Ok :(");
+            }
+        });
+
+        GetUsers();
     }
 
     async void CreateUser()
