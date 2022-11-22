@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="MealyStateMachine.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:MealyStateMachine.Views"
+    Shell.FlyoutBehavior="Disabled">
+
+	<TabBar>
+		<Tab Title="Json"
+			 Icon="json.png">
+			<ShellContent ContentTemplate="{DataTemplate views:JsonPage}"/>
+		</Tab>
+		<Tab Title="Graph"
+			 Icon="graph.png">
+			<ShellContent ContentTemplate="{DataTemplate views:GrahpPage}"/>
+		</Tab>
+	</TabBar>
+
+</Shell>
