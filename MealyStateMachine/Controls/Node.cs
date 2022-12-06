@@ -5,13 +5,15 @@ public class Node
 	public List<Edge> Edges { get; set; } = new();
 	public PointF Position { get; set; }
 	public static int Radius { get; set; } = 16;
+	public string Text { get; set; }
 
 	private PointF _nextPosition;
 	private int _weightMultiplier = 96;
 	private int _velosityMultiplier = 160;
 
-	public Node()
+	public Node(string text = "")
 	{
+		Text = text;
 	}
 
 	public void AddEdge(Edge edge)
@@ -81,9 +83,20 @@ public class Node
 	public void Paint(ICanvas canvas)
 	{
 		var color = App.Colors["Tertiary"] as Color;
+
 		canvas.StrokeColor = color;
 		canvas.SetShadow(new SizeF(0, 0), 10, color);
 		canvas.StrokeSize = 4;
 		canvas.DrawCircle((float)Position.X, (float)Position.Y, Radius);
+
+		canvas.FontSize = Radius;
+		canvas.FontColor = App.Current.RequestedTheme == AppTheme.Light
+			? Colors.Black
+			: Colors.White;
+		canvas.DrawString(
+			Text,
+			(float)Position.X,
+			(float)Position.Y + (Radius / 3),
+			HorizontalAlignment.Center);
 	}
 }

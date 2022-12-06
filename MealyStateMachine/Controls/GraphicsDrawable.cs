@@ -22,14 +22,14 @@ public class GraphicsDrawable : IDrawable
 			node.AdvancePosition();
 		}
 
-		foreach (var edge in Items.Edges)
-		{
-			edge.Paint(canvas);
-		}
-
 		foreach (var node in Items.Nodes)
 		{
 			node.Paint(canvas);
+		}
+
+		foreach (var edge in Items.Edges)
+		{
+			edge.Paint(canvas);
 		}
 	}
 }

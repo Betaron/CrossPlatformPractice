@@ -5,10 +5,12 @@ public class Edge
 	public Node SourceNode { get; private set; }
 	public Node DestNode { get; private set; }
 	public double ArrowSize { get; private set; } = 16;
+	public string Text { get; set; }
 
 	private PointF _sourcePoint;
 	private PointF _destPoint;
 	private PointF[] _arrowPoints = new PointF[2];
+	private PointF _textPoint;
 	private PathF _arrow = new();
 	private int _strokeThikness = 4;
 	private int _additionOffset = 4;
@@ -45,6 +47,13 @@ public class Edge
 			_arrow.MoveTo(_arrowPoints[0]);
 			_arrow.LineTo(_destPoint);
 			_arrow.LineTo(_arrowPoints[1]);
+
+			PointF center = new(
+				(_sourcePoint.X + _destPoint.X) / 2,
+				(_sourcePoint.Y + _destPoint.Y) / 2);
+			Size v1 = (_sourcePoint - center) / ((float)len / 2);
+			Size v2 = new(v1.Height, -v1.Width);
+			_textPoint = center + v2 * Node.Radius * 2;
 		}
 		else
 		{
@@ -52,19 +61,22 @@ public class Edge
 		}
 	}
 
-	public Edge(Node sourceNode, Node destNode)
+	public Edge(Node sourceNode, Node destNode, string text = "")
 	{
 		SourceNode = sourceNode;
 		DestNode = destNode;
 		SourceNode.AddEdge(this);
 		DestNode.AddEdge(this);
+		Text = text;
 		Adjust();
 	}
 
 	public void Paint(ICanvas canvas)
 	{
 		Adjust();
+
 		var color = App.Colors["Tertiary"] as Color;
+
 		canvas.StrokeColor = color;
 		canvas.SetShadow(new SizeF(0, 0), 10, color);
 		canvas.StrokeSize = _strokeThikness;
@@ -72,5 +84,15 @@ public class Edge
 		canvas.StrokeLineJoin = LineJoin.Round;
 		canvas.DrawLine(_sourcePoint, _destPoint);
 		canvas.DrawPath(_arrow);
+
+		canvas.FontSize = Node.Radius;
+		canvas.FontColor = App.Current.RequestedTheme == AppTheme.Light
+			? Colors.Black
+			: Colors.White;
+		canvas.DrawString(
+			Text,
+			_textPoint.X,
+			_textPoint.Y,
+			HorizontalAlignment.Center);
 	}
 }
