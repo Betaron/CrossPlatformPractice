@@ -13,7 +13,7 @@
 		</Tab>
 		<Tab Title="Graph"
 			 Icon="graph.png">
-			<ShellContent ContentTemplate="{DataTemplate views:GrahpPage}"/>
+			<ShellContent ContentTemplate="{DataTemplate views:GraphPage}"/>
 		</Tab>
 	</TabBar>
 

@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using MealyStateMachine.Exceptions;
 
-namespace Mea.ViewModels;
+namespace MealyStateMachine.ViewModels;
 
 public partial class BaseViewModel : ObservableObject
 {

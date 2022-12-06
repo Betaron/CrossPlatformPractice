@@ -1,12 +1,17 @@
 ﻿namespace MealyStateMachine
 {
-    public partial class App : Application
-    {
-        public App()
-        {
-            InitializeComponent();
+	public partial class App : Application
+	{
+		public static ResourceDictionary Colors
+		{
+			get => Current.Resources.MergedDictionaries.ToArray()[0];
+		}
 
-            MainPage = new AppShell();
-        }
-    }
+		public App()
+		{
+			InitializeComponent();
+
+			MainPage = new AppShell();
+		}
+	}
 }
