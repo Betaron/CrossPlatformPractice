@@ -52,7 +52,7 @@ public class Edge
 				(_sourcePoint.X + _destPoint.X) / 2,
 				(_sourcePoint.Y + _destPoint.Y) / 2);
 			Size v1 = (_sourcePoint - center) / ((float)len / 2);
-			Size v2 = new(v1.Height, -v1.Width);
+			Size v2 = new(-v1.Height, v1.Width);
 			_textPoint = center + v2 * Node.Radius * 2;
 		}
 		else

@@ -23,7 +23,7 @@ public static class Items
 		for (int i = 0; i < Nodes.Count; i++)
 		{
 			Node node = Nodes[i];
-			node.Position = new Point(random.Next(16, 400), random.Next(16, 800));
+			node.Position = new Point(random.Next(16, 800), random.Next(16, 400));
 		}
 	}
 }
