@@ -6,7 +6,9 @@
 	<ContentPage.Resources>
 		<drawable:GraphicsDrawable x:Key="drawable"/>
 	</ContentPage.Resources>
-	<GraphicsView x:FieldModifier="Public" x:Name="graphGraphicsView" 
+	<GraphicsView x:FieldModifier="Public" x:Name="graphGraphicsView"
+				  MinimumWidthRequest="200"
+				  MinimumHeightRequest="200"
 				  Drawable="{StaticResource drawable}">
 	</GraphicsView>
 </ContentPage>

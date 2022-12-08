@@ -4,16 +4,20 @@ public class Node
 {
 	public List<Edge> Edges { get; set; } = new();
 	public PointF Position { get; set; }
-	public static int Radius { get; set; } = 16;
 	public string Text { get; set; }
 
 	private PointF _nextPosition;
-	private int _weightMultiplier = 96;
-	private int _velosityMultiplier = 160;
+	private int _weightMultiplier = 30;
+	private int _velosityMultiplier = 250;
 
 	public Node(string text = "")
 	{
 		Text = text;
+	}
+
+	public static SizeF operator -(Node n1, Node n2)
+	{
+		return n1.Position - n2.Position;
 	}
 
 	public void AddEdge(Edge edge)
@@ -51,7 +55,7 @@ public class Node
 			yVelosity -= vector.Height / weight;
 		}
 
-		if (Math.Abs(xVelosity) < 0.1 && Math.Abs(yVelosity) < 0.1)
+		if (Math.Abs(xVelosity) < 0.3 && Math.Abs(yVelosity) < 0.3)
 		{
 			xVelosity = yVelosity = 0;
 		}
@@ -60,7 +64,7 @@ public class Node
 			(float)xVelosity + Position.X,
 			(float)yVelosity + Position.Y);
 
-		int margin = 16;
+		int margin = GraphicsDrawable.Unit * 2;
 		RectF bounds = GraphicsDrawable.Bounds;
 		_nextPosition.X =
 			Math.Min(Math.Max(_nextPosition.X, bounds.Left + margin), bounds.Right - margin);
@@ -79,24 +83,22 @@ public class Node
 		return true;
 	}
 
-	Random random = new();
 	public void Paint(ICanvas canvas)
 	{
 		var color = App.Colors["Tertiary"] as Color;
 
 		canvas.StrokeColor = color;
-		canvas.SetShadow(new SizeF(0, 0), 10, color);
 		canvas.StrokeSize = 4;
-		canvas.DrawCircle((float)Position.X, (float)Position.Y, Radius);
+		canvas.DrawCircle((float)Position.X, (float)Position.Y, GraphicsDrawable.Unit);
 
-		canvas.FontSize = Radius;
+		canvas.FontSize = GraphicsDrawable.Unit;
 		canvas.FontColor = App.Current.RequestedTheme == AppTheme.Light
 			? Colors.Black
 			: Colors.White;
 		canvas.DrawString(
 			Text,
 			(float)Position.X,
-			(float)Position.Y + (Radius / 3),
+			(float)Position.Y + (GraphicsDrawable.Unit / 3),
 			HorizontalAlignment.Center);
 	}
 }
