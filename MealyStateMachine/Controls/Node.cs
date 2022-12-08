@@ -7,7 +7,7 @@ public class Node
 	public string Text { get; set; }
 
 	private PointF _nextPosition;
-	private int _weightMultiplier = 30;
+	private int _weightMultiplier = 20;
 	private int _velosityMultiplier = 250;
 
 	public Node(string text = "")
@@ -32,7 +32,7 @@ public class Node
 
 		foreach (var node in Items.Nodes)
 		{
-			Size vector = this.Position - node.Position;
+			Size vector = this - node;
 			var dx = vector.Width;
 			var dy = vector.Height;
 
@@ -48,8 +48,8 @@ public class Node
 		foreach (var edge in Edges)
 		{
 			Size vector = edge.SourceNode == this
-				? this.Position - edge.DestNode.Position
-				: this.Position - edge.SourceNode.Position;
+				? this - edge.DestNode
+				: this - edge.SourceNode;
 
 			xVelosity -= vector.Width / weight;
 			yVelosity -= vector.Height / weight;
@@ -83,13 +83,13 @@ public class Node
 		return true;
 	}
 
-	public void Paint(ICanvas canvas)
+	public virtual void Paint(ICanvas canvas)
 	{
 		var color = App.Colors["Tertiary"] as Color;
 
 		canvas.StrokeColor = color;
 		canvas.StrokeSize = 4;
-		canvas.DrawCircle((float)Position.X, (float)Position.Y, GraphicsDrawable.Unit);
+		canvas.DrawCircle(Position, GraphicsDrawable.Unit);
 
 		canvas.FontSize = GraphicsDrawable.Unit;
 		canvas.FontColor = App.Current.RequestedTheme == AppTheme.Light

@@ -18,7 +18,7 @@ public class GraphicsDrawable : IDrawable
 			if (node.AdvancePosition())
 			{
 				allStanding = false;
-				GraphPage.SetFPS(240);
+				GraphPage.SetFPS(300);
 
 				foreach (var edge in node.Edges)
 				{
