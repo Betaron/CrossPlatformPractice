@@ -48,7 +48,7 @@ public partial class GraphViewModel : BaseViewModel
 		}
 	}
 
-	public async void SaveGraph()
+	public static async void SaveGraph()
 	{
 		SkiaBitmapExportContext skiaBitmapExportContext = new(
 			(int)GraphicsDrawable.Bounds.Width,
