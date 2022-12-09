@@ -55,7 +55,7 @@ public class Node
 			yVelosity -= vector.Height / weight;
 		}
 
-		if (Math.Abs(xVelosity) < 0.3 && Math.Abs(yVelosity) < 0.3)
+		if (Math.Abs(xVelosity) < 0.4 && Math.Abs(yVelosity) < 0.4)
 		{
 			xVelosity = yVelosity = 0;
 		}
