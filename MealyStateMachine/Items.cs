@@ -1,6 +1,7 @@
 ﻿using MealyStateMachine.Controls;
 using MealyStateMachine.Creators;
 using MealyStateMachine.Models;
+using MealyStateMachine.ViewModels;
 
 namespace MealyStateMachine;
 
@@ -48,18 +49,6 @@ public static class Items
 				edgeModel.Text));
 		}
 
-		Shuffle();
-	}
-
-	public static void Shuffle()
-	{
-		Random random = new();
-		for (int i = 0; i < Nodes.Count; i++)
-		{
-			Node node = Nodes[i];
-			node.Position = new Point(
-				random.Next(GraphicsDrawable.Unit, 800),
-				random.Next(GraphicsDrawable.Unit, 400));
-		}
+		GraphViewModel.Shuffle();
 	}
 }

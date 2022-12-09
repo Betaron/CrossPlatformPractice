@@ -48,6 +48,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiImage Include="Resources\Images\add_circle.png" />
+	  <MauiImage Include="Resources\Images\arrow_move_inward.png" />
+	  <MauiImage Include="Resources\Images\arrow_shuffle.png" />
+	  <MauiImage Include="Resources\Images\code_text.png" />
+	  <MauiImage Include="Resources\Images\delete.png" />
+	  <MauiImage Include="Resources\Images\folder_open.png" />
+	  <MauiImage Include="Resources\Images\save.png" />
+	  <MauiImage Include="Resources\Images\save_image.png" />
+	  <MauiImage Include="Resources\Images\save_sync.png" />
 	  <MauiImage Include="Resources\Images\graph.png" />
 	  <MauiImage Include="Resources\Images\json.png" />
 	</ItemGroup>
@@ -55,6 +64,7 @@
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Maui" Version="2.0.0" />
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+	  <PackageReference Include="Microsoft.Maui.Graphics.Skia" Version="6.0.403" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Maui;
+using MealyStateMachine.ViewModels;
+using MealyStateMachine.Views;
 
 namespace MealyStateMachine
 {
@@ -15,6 +17,9 @@ namespace MealyStateMachine
 					fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 					fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 				});
+
+			builder.Services.AddScoped<GraphPage>();
+			builder.Services.AddScoped<GraphViewModel>();
 
 			return builder.Build();
 		}

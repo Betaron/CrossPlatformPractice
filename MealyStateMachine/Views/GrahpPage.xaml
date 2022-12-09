@@ -2,13 +2,38 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 			 xmlns:drawable="clr-namespace:MealyStateMachine.Controls"
-			 x:Class="MealyStateMachine.Views.GraphPage">
+			 x:Class="MealyStateMachine.Views.GraphPage"
+			 xmlns:viewModels="clr-namespace:MealyStateMachine.ViewModels"
+			 x:DataType="viewModels:GraphViewModel">
 	<ContentPage.Resources>
 		<drawable:GraphicsDrawable x:Key="drawable"/>
+		<Style x:Key="iconButton" TargetType="ImageButton">
+			<Setter Property="Aspect" Value="AspectFit" />
+			<Setter Property="WidthRequest" Value="40" />
+			<Setter Property="Margin" Value="8" />
+			<Setter Property="CornerRadius" Value="8" />
+			<Setter Property="Padding" Value="4" />
+		</Style>
 	</ContentPage.Resources>
-	<GraphicsView x:FieldModifier="Public" x:Name="graphGraphicsView"
-				  MinimumWidthRequest="200"
-				  MinimumHeightRequest="200"
-				  Drawable="{StaticResource drawable}">
-	</GraphicsView>
+	<Grid RowDefinitions="56, *">
+		<HorizontalStackLayout Grid.Row="0" HorizontalOptions="Start">
+			<ImageButton Source="arrow_shuffle.png" 
+						 Style="{StaticResource iconButton}"
+						 Command="{Binding ShuffleGraphCommand}"/>
+			<ImageButton Source="arrow_move_inward.png" 
+						 Style="{StaticResource iconButton}" 
+						 Command="{Binding СenterGraphCommand}"/>
+			<ImageButton Source="save_image.png" 
+						 Style="{StaticResource iconButton}"
+						 Command="{Binding SaveGraphCommand}"/>
+		</HorizontalStackLayout>
+		<Frame Grid.Row="1">
+			<GraphicsView x:FieldModifier="Public" 
+						  x:Name="graphGraphicsView"
+						  MinimumWidthRequest="200"
+						  MinimumHeightRequest="200"
+						  Drawable="{StaticResource drawable}">
+			</GraphicsView>
+		</Frame>
+	</Grid>
 </ContentPage>
