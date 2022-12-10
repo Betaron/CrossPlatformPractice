@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
+             x:Class="MealyStateMachine.Views.JsonPage"
+			 xmlns:viewModels="clr-namespace:MealyStateMachine.ViewModels"
+			 x:DataType="viewModels:JsonViewModel">
+
+	<ContentPage.Behaviors>
+		<mct:StatusBarBehavior StatusBarColor="{StaticResource Secondary}"/>
+	</ContentPage.Behaviors>
+	<ContentPage.Resources>
+		<Style x:Key="iconButton" TargetType="ImageButton">
+			<Setter Property="Aspect" Value="AspectFit" />
+			<Setter Property="WidthRequest" Value="40" />
+			<Setter Property="Margin" Value="8" />
+			<Setter Property="CornerRadius" Value="8" />
+			<Setter Property="Padding" Value="4" />
+		</Style>
+	</ContentPage.Resources>
+
+	<Grid RowDefinitions="56, 36, *">
+		<HorizontalStackLayout Grid.Row="0" HorizontalOptions="Start">
+			<ImageButton Source="folder_open.png" 
+						 Style="{StaticResource iconButton}"
+						 Command="{Binding FileOpenCommand}"/>
+			<ImageButton Source="save_sync.png" 
+						 Style="{StaticResource iconButton}" 
+						 Command="{Binding FileSaveCommand}"/>
+			<ImageButton Source="save.png" 
+						 Style="{StaticResource iconButton}"
+						 Command="{Binding FileSaveAsCommand}"/>
+			<ImageButton Source="select_object_skew_edit.png" 
+						 Style="{StaticResource iconButton}"
+						 Command="{Binding ApplyJsonCommand}"/>
+		</HorizontalStackLayout>
+		<Label Grid.Row="1" Text="{Binding CurrentFile}" FontSize="14" Margin="8"/>
+		<Frame Margin="8" Grid.Row="2">
+			<Editor Text="{Binding JsonString}" 
+					IsSpellCheckEnabled="false"
+					AutoSize="TextChanges" 
+					Margin="1"/>
+		</Frame>
+	</Grid>
+</ContentPage>
