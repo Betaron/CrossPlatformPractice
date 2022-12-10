@@ -5,7 +5,7 @@ namespace MealyStateMachine.Views;
 
 public partial class GraphPage : ContentPage
 {
-	private static int _fps = 300;
+	private static int _fps = 1;
 	public static void SetFPS(int fps)
 	{
 		if (_fps != fps)

@@ -15,6 +15,9 @@ public class GraphicsDrawable : IDrawable
 		Canvas = canvas;
 		bool allStanding = true;
 
+		if (Items.Nodes.Count == 0)
+			return;
+
 		foreach (var node in Items.Nodes)
 		{
 			node.CalculateForces();

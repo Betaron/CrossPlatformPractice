@@ -7,8 +7,8 @@ public class Node
 	public string Text { get; set; }
 
 	private PointF _nextPosition;
-	private int _weightMultiplier = 20;
-	private int _velosityMultiplier = 250;
+	private int _weightMultiplier = 50;
+	private int _velosityMultiplier = 350;
 
 	public Node(string text = "")
 	{
